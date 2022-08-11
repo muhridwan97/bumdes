@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-ref_kecamatan-table
+      author: Muhammad Ridwan <muh.ridwan97@gmail.com>
+      changes:
+        - createTable:
+            tableName: ref_kecamatan
+            columns:
+              - column:
+                  name: id
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ref_kecamatan_pkey
+                    unique: true
+                    nullable: false
+              - column:
+                  name: nama_kecamatan
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValue: "false"
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: updated_by
+                  type: varchar(255)
+              - column:
+                  name: deleted_at
+                  type: timestamp
+              - column:
+                  name: deleted_by
+                  type: varchar(255)

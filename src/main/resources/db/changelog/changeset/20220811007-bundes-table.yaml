@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-bundes-table
+      author: Muhammad Ridwan <muh.ridwan97@gmail.com>
+      changes:
+        - createTable:
+            tableName: bundes
+            columns:
+              - column:
+                  name: id
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: bundes_pkey
+                    unique: true
+                    nullable: false
+              - column:
+                  name: id_desa
+                  type: varchar(50)
+                  constraints:
+                    foreignKeyName: fk_bundes_ref_desa
+                    references: ref_desa(id)
+                    nullable: false
+              - column:
+                  name: id_kecamatan
+                  type: varchar(50)
+                  constraints:
+                    foreignKeyName: fk_bundes_ref_kecamatan
+                    references: ref_kecamatan(id)
+                    nullable: false
+              - column:
+                  name: id_badan_hukum
+                  type: varchar(50)
+                  constraints:
+                    foreignKeyName: fk_bundes_ref_badan_hukum
+                    references: ref_badan_hukum(id)
+                    nullable: false
+              - column:
+                  name: id_unit_usaha
+                  type: varchar(50)
+                  constraints:
+                    foreignKeyName: fk_bundes_ref_unit_usaha
+                    references: ref_unit_usaha(id)
+                    nullable: false
+              - column:
+                  name: nama
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: jumlah_kontribusi_pad
+                  type: decimal(20,2)
+              - column:
+                  name: klasifikasi
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tipe
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: foto
+                  type: varchar(255)
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValue: "false"
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: updated_by
+                  type: varchar(255)
+              - column:
+                  name: deleted_at
+                  type: timestamp
+              - column:
+                  name: deleted_by
+                  type: varchar(255)

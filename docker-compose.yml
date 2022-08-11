@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db-siwas:
+    container_name: "db-bumdes"
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: bumdes
+#    networks:
+#      - siwas-network
+#  api:
+#    build: .
+#    restart: always
+#    container_name: "api-siwas"
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - db-siwas
+#    networks:
+#      - siwas-network
+#    environment:
+#      - TZ=Asia/Jakarta
+#
+#networks:
+#  siwas-network:
+#    external: false

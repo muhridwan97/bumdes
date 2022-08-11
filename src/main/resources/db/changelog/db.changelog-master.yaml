@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - include:
+      file: 'db/changelog/changeset/20220811001-ref_desa-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811002-ref_kecamatan-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811003-ref_badan_hukum-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811004-ref_unit_usaha-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811005-ref_pengurus-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811006-ref_kategori-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811007-bundes-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811008-bundes_bersama-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811009-pengurus_bundes-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811010-sekolah_bundes-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811011-berita_bundes-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811012-konsultasi_bundes-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220811013-tanggapan-table.yaml'
