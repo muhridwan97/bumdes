@@ -1,4 +1,4 @@
-package id.go.purbalinggakab.bumdes.entity
+package id.go.purbalinggakab.bumdes.bumdes.entity
 
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.GenericGenerator

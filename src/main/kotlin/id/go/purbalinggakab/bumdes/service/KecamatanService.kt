@@ -9,13 +9,13 @@ import java.security.Principal
 interface KecamatanService {
     fun list(principal: Principal, requestParams: RequestParams, filter: Map<String, String>): ListResponse<KecamatanResponse>
 
-    fun get(id: String): KecamatanResponse
+    fun get(id: Long): KecamatanResponse
 
-    fun create(principal: Principal, kecamatanRequest: KecamatanRequest): KecamatanResponse
-
-    fun update(id: String, kecamatanRequest: KecamatanRequest): KecamatanResponse
-
-    fun delete(id: String)
-
-    fun deleteList(ids: List<String>): String
+//    fun create(principal: Principal, kecamatanRequest: KecamatanRequest): KecamatanResponse
+//
+//    fun update(id: String, kecamatanRequest: KecamatanRequest): KecamatanResponse
+//
+//    fun delete(id: String)
+//
+//    fun deleteList(ids: List<String>): String
 }

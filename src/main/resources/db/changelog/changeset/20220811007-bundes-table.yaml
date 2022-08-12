@@ -18,15 +18,15 @@ databaseChangeLog:
                   name: id_desa
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_bundes_ref_desa
-                    references: ref_desa(id)
+#                    foreignKeyName: fk_bundes_ref_desa
+#                    references: ref_desa(id)
                     nullable: false
               - column:
                   name: id_kecamatan
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_bundes_ref_kecamatan
-                    references: ref_kecamatan(id)
+#                    foreignKeyName: fk_bundes_ref_kecamatan
+#                    references: ref_kecamatan(id)
                     nullable: false
               - column:
                   name: id_badan_hukum

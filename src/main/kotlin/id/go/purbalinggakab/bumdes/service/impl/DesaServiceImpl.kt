@@ -1,6 +1,6 @@
 package id.go.purbalinggakab.bumdes.service.impl
 
-import id.go.purbalinggakab.bumdes.entity.DesaEntity
+import id.go.purbalinggakab.bumdes.bumdes.entity.DesaEntity
 import id.go.purbalinggakab.bumdes.exception.NotFoundException
 import id.go.purbalinggakab.bumdes.extensions.formateDateTime
 import id.go.purbalinggakab.bumdes.model.request.RequestParams
@@ -8,7 +8,7 @@ import id.go.purbalinggakab.bumdes.model.request.DesaRequest
 import id.go.purbalinggakab.bumdes.model.response.DesaResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.ListResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.PagingResponse
-import id.go.purbalinggakab.bumdes.repository.DesaRepository
+import id.go.purbalinggakab.bumdes.bumdes.repository.DesaRepository
 import id.go.purbalinggakab.bumdes.service.KeycloakAuthService
 import id.go.purbalinggakab.bumdes.service.DesaService
 import id.go.purbalinggakab.bumdes.specification.FilterMapper
