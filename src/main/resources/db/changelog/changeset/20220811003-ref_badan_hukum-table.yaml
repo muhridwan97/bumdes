@@ -32,10 +32,9 @@ databaseChangeLog:
                   name: no_badan_hukum
                   type: varchar(200)
                   constraints:
-                    unique: true
                     nullable: false
               - column:
-                  name: nama_bundes
+                  name: nama_bumdes
                   type: varchar(200)
                   constraints:
                     nullable: false

@@ -2,6 +2,7 @@ package id.go.purbalinggakab.bumdes.service
 
 import id.go.purbalinggakab.bumdes.model.request.RequestParams
 import id.go.purbalinggakab.bumdes.model.request.KecamatanRequest
+import id.go.purbalinggakab.bumdes.model.response.ItemResponse
 import id.go.purbalinggakab.bumdes.model.response.KecamatanResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.ListResponse
 import java.security.Principal
@@ -11,6 +12,7 @@ interface KecamatanService {
 
     fun get(id: Long): KecamatanResponse
 
+    fun listAll(): List<ItemResponse<String>>
 //    fun create(principal: Principal, kecamatanRequest: KecamatanRequest): KecamatanResponse
 //
 //    fun update(id: String, kecamatanRequest: KecamatanRequest): KecamatanResponse

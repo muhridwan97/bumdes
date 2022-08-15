@@ -1,28 +1,39 @@
 databaseChangeLog:
   - changeSet:
-      id: create-konsultasi_bundes-table
+      id: create-bumdes_bersama-table
       author: Muhammad Ridwan <muh.ridwan97@gmail.com>
       changes:
         - createTable:
-            tableName: konsultasi_bundes
+            tableName: bumdes_bersama
             columns:
               - column:
                   name: id
                   type: varchar(50)
                   constraints:
                     primaryKey: true
-                    primaryKeyName: konsultasi_bundes_pkey
+                    primaryKeyName: bumdes_bersama_pkey
                     unique: true
                     nullable: false
               - column:
-                  name: judul
+                  name: id_bumdes
                   type: varchar(50)
                   constraints:
+                    foreignKeyName: fk_bumdes_bersama_bumdes
+                    references: bumdes(id)
                     nullable: false
               - column:
-                  name: deskripsi
-                  type: text
+                  name: id_desa
+                  type: varchar(50)
                   constraints:
+#                    foreignKeyName: fk_bumdes_bersama_ref_desa
+#                    references: ref_desa(id)
+                    nullable: false
+              - column:
+                  name: id_kecamatan
+                  type: varchar(50)
+                  constraints:
+#                    foreignKeyName: fk_bumdes_bersama_ref_kecamatan
+#                    references: ref_kecamatan(id)
                     nullable: false
               - column:
                   name: is_deleted

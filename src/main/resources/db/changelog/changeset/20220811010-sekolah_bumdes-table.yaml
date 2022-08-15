@@ -1,40 +1,54 @@
 databaseChangeLog:
   - changeSet:
-      id: create-bundes_bersama-table
+      id: create-sekolah_bumdes-table
       author: Muhammad Ridwan <muh.ridwan97@gmail.com>
       changes:
         - createTable:
-            tableName: bundes_bersama
+            tableName: sekolah_bumdes
             columns:
               - column:
                   name: id
                   type: varchar(50)
                   constraints:
                     primaryKey: true
-                    primaryKeyName: bundes_bersama_pkey
+                    primaryKeyName: sekolah_bumdes_pkey
                     unique: true
                     nullable: false
               - column:
-                  name: id_bundes
+                  name: id_kategori
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_bundes_bersama_bundes
-                    references: bundes(id)
+                    foreignKeyName: fk_sekolah_bumdes_ref_kategori
+                    references: ref_kategori(id)
                     nullable: false
               - column:
-                  name: id_desa
+                  name: judul
                   type: varchar(50)
                   constraints:
-#                    foreignKeyName: fk_bundes_bersama_ref_desa
-#                    references: ref_desa(id)
                     nullable: false
               - column:
-                  name: id_kecamatan
-                  type: varchar(50)
+                  name: isi
+                  type: text
                   constraints:
-#                    foreignKeyName: fk_bundes_bersama_ref_kecamatan
-#                    references: ref_kecamatan(id)
                     nullable: false
+              - column:
+                  name: tanggal
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: waktu
+                  type: time
+                  constraints:
+                    nullable: false
+              - column:
+                  name: penulis
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: foto
+                  type: varchar(255)
               - column:
                   name: is_deleted
                   type: boolean

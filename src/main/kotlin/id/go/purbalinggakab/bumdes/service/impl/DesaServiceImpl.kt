@@ -1,14 +1,14 @@
 package id.go.purbalinggakab.bumdes.service.impl
 
-import id.go.purbalinggakab.bumdes.bumdes.entity.DesaEntity
-import id.go.purbalinggakab.bumdes.exception.NotFoundException
+import id.go.purbalinggakab.bumdes.dami.entity.DesaEntity
+import id.go.purbalinggakab.bumdes.error.NotFoundException
 import id.go.purbalinggakab.bumdes.extensions.formateDateTime
 import id.go.purbalinggakab.bumdes.model.request.RequestParams
-import id.go.purbalinggakab.bumdes.model.request.DesaRequest
 import id.go.purbalinggakab.bumdes.model.response.DesaResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.ListResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.PagingResponse
-import id.go.purbalinggakab.bumdes.bumdes.repository.DesaRepository
+import id.go.purbalinggakab.bumdes.dami.repository.DesaRepository
+import id.go.purbalinggakab.bumdes.model.response.ItemResponse
 import id.go.purbalinggakab.bumdes.service.KeycloakAuthService
 import id.go.purbalinggakab.bumdes.service.DesaService
 import id.go.purbalinggakab.bumdes.specification.FilterMapper
@@ -19,7 +19,6 @@ import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.security.Principal
-import java.util.*
 import java.util.stream.Collectors
 
 @Service
@@ -63,71 +62,56 @@ class DesaServiceImpl(
         )
     }
 
-    override fun get(id: String): DesaResponse {
+    override fun get(id: Long): DesaResponse {
         val result = findById(id)
 
         return convertResponse(result)
     }
 
-    override fun create(principal: Principal, desaRequest: DesaRequest): DesaResponse {
-        //bypass name with access token
-        val user = keycloakAuthService.getUserInfo(principal)
+    override fun listAll(): List<ItemResponse<String>> {
+        val list = desaRepository.findAll()
 
-        val entity = DesaEntity(
-            id = "",
-            namaDesa = desaRequest.nama_desa,
-            createdAt = Date(),
-            createdBy = user.username,
-            updatedAt = null,
-            updatedBy = null,
-            deletedAt = null,
-            deletedBy = null
-        )
-
-        val result = desaRepository.save(entity)
-
-        return convertResponse(result)
-    }
-
-    override fun update(id: String, desaRequest: DesaRequest): DesaResponse {
-        val result = findById(id)
-
-        result.apply {
-            namaDesa = desaRequest.nama_desa
-            updatedAt = Date()
+        return list.map {
+            ItemResponse(
+                id = it.id.toString(),
+                value = it.id.toString(),
+                label = it.namaDesa
+            )
         }
-
-        desaRepository.save(result)
-
-        return convertResponse(result)
     }
 
-    override fun delete(id: String) {
-        val result = findById(id)
+    override fun listByKec(idKec: Long): List<ItemResponse<String>> {
+        val list = desaRepository.findAllByKodeKec(idKec)
 
-        desaRepository.delete(result)
+        return list.map {
+            ItemResponse(
+                id = it.id.toString(),
+                value = it.id.toString(),
+                label = it.namaDesa
+            )
+        }
     }
 
-    override fun deleteList(ids: List<String>): String {
-        desaRepository.deleteAllById(ids)
-        return "Delete Successfully"
-    }
 
     private fun convertResponse(desaEntity: DesaEntity): DesaResponse {
         return DesaResponse(
             id = desaEntity.id,
+            kode_kab = desaEntity.kodeKab,
+            kode_kec = desaEntity.kodeKec,
+            kode_desa = desaEntity.kodeDesa,
             nama_desa = desaEntity.namaDesa,
             created_at = desaEntity.createdAt.formateDateTime(),
-            created_by = desaEntity.createdBy,
-            updated_at = if (desaEntity.updatedAt == null) null else desaEntity.updatedAt!!.formateDateTime(),
-            updated_by = desaEntity.updatedBy,
-            deleted_at = if (desaEntity.deletedAt == null) null else desaEntity.deletedAt!!.formateDateTime(),
-            deleted_by = desaEntity.deletedBy,
         )
     }
 
-    private fun findById(id: String): DesaEntity {
-        return desaRepository.findByIdOrNull(id) ?: throw NotFoundException(id)
+    private fun findById(id: Long): DesaEntity {
+        val result =  desaRepository.findByIdOrNull(id)
+        if (result == null) {
+            throw NotFoundException()
+        } else {
+            return result;
+        }
+
     }
 
 

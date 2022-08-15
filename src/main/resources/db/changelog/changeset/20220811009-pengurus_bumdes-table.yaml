@@ -1,54 +1,33 @@
 databaseChangeLog:
   - changeSet:
-      id: create-berita_bundes-table
+      id: create-pengurus_bumdes-table
       author: Muhammad Ridwan <muh.ridwan97@gmail.com>
       changes:
         - createTable:
-            tableName: berita_bundes
+            tableName: pengurus_bumdes
             columns:
               - column:
                   name: id
                   type: varchar(50)
                   constraints:
                     primaryKey: true
-                    primaryKeyName: berita_bundes_pkey
+                    primaryKeyName: pengurus_bumdes_pkey
                     unique: true
                     nullable: false
               - column:
-                  name: id_kategori
+                  name: id_bumdes
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_berita_bundes_ref_kategori
-                    references: ref_kategori(id)
+                    foreignKeyName: fk_pengurus_bumdes_bumdes
+                    references: bumdes(id)
                     nullable: false
               - column:
-                  name: judul
+                  name: id_pengurus
                   type: varchar(50)
                   constraints:
+                    foreignKeyName: fk_pengurus_bumdes_ref_pengurus
+                    references: ref_pengurus(id)
                     nullable: false
-              - column:
-                  name: isi
-                  type: text
-                  constraints:
-                    nullable: false
-              - column:
-                  name: tanggal
-                  type: date
-                  constraints:
-                    nullable: false
-              - column:
-                  name: waktu
-                  type: time
-                  constraints:
-                    nullable: false
-              - column:
-                  name: penulis
-                  type: varchar(100)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: foto
-                  type: varchar(255)
               - column:
                   name: is_deleted
                   type: boolean

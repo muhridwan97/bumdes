@@ -18,8 +18,8 @@ databaseChangeLog:
                   name: id_konsultasi
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_tanggapan_konsultasi_bundes
-                    references: konsultasi_bundes(id)
+                    foreignKeyName: fk_tanggapan_konsultasi_bumdes
+                    references: konsultasi_bumdes(id)
                     nullable: false
               - column:
                   name: tipe

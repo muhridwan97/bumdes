@@ -1,23 +1,24 @@
 package id.go.purbalinggakab.bumdes.bumdes.entity
 
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.GenericGenerator
-import org.hibernate.annotations.UpdateTimestamp
-import org.hibernate.annotations.Where
+import id.go.purbalinggakab.bumdes.dami.entity.DesaEntity
+import id.go.purbalinggakab.bumdes.dami.entity.KecamatanEntity
+import org.hibernate.annotations.*
 import java.util.*
 import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Table
 
 @Entity
-@Table(name = "ref_desa")
+@Table(name = "ref_kategori")
 @Where(clause = "is_deleted=false")
-data class DesaEntity(
+data class KategoriEntity(
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     var id: String,
 
-    @Column(name = "nama_desa")
-    var namaDesa: String,
+    @Column(name = "nama_kategori")
+    var namaKategori: String,
 
     @Column(name = "is_deleted")
     var isDeleted : Boolean? = false,

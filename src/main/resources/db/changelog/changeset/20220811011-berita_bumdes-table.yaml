@@ -1,24 +1,24 @@
 databaseChangeLog:
   - changeSet:
-      id: create-sekolah_bundes-table
+      id: create-berita_bumdes-table
       author: Muhammad Ridwan <muh.ridwan97@gmail.com>
       changes:
         - createTable:
-            tableName: sekolah_bundes
+            tableName: berita_bumdes
             columns:
               - column:
                   name: id
                   type: varchar(50)
                   constraints:
                     primaryKey: true
-                    primaryKeyName: sekolah_bundes_pkey
+                    primaryKeyName: berita_bumdes_pkey
                     unique: true
                     nullable: false
               - column:
                   name: id_kategori
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_sekolah_bundes_ref_kategori
+                    foreignKeyName: fk_berita_bumdes_ref_kategori
                     references: ref_kategori(id)
                     nullable: false
               - column:

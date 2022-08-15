@@ -1,6 +1,7 @@
 package id.go.purbalinggakab.bumdes.controller
 
 import id.go.purbalinggakab.bumdes.model.request.RequestParams
+import id.go.purbalinggakab.bumdes.model.response.ItemResponse
 import id.go.purbalinggakab.bumdes.model.response.WebResponse
 import id.go.purbalinggakab.bumdes.model.response.KecamatanResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.ListResponse
@@ -34,6 +35,18 @@ class KecamatanController(val kecamatanService: KecamatanService) {
             code = 200,
             status = "OK",
             data = result
+        )
+    }
+    @GetMapping(
+        value = ["/listAll"],
+        produces = ["application/json"]
+    )
+    fun getItemListAll(): WebResponse<List<ItemResponse<String>>> {
+        val responses = kecamatanService.listAll()
+        return WebResponse(
+            code = 200,
+            status = "OK",
+            data = responses
         )
     }
 }

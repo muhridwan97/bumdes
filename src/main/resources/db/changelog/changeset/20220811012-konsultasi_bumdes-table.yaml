@@ -1,32 +1,28 @@
 databaseChangeLog:
   - changeSet:
-      id: create-pengurus_bundes-table
+      id: create-konsultasi_bumdes-table
       author: Muhammad Ridwan <muh.ridwan97@gmail.com>
       changes:
         - createTable:
-            tableName: pengurus_bundes
+            tableName: konsultasi_bumdes
             columns:
               - column:
                   name: id
                   type: varchar(50)
                   constraints:
                     primaryKey: true
-                    primaryKeyName: pengurus_bundes_pkey
+                    primaryKeyName: konsultasi_bumdes_pkey
                     unique: true
                     nullable: false
               - column:
-                  name: id_bundes
+                  name: judul
                   type: varchar(50)
                   constraints:
-                    foreignKeyName: fk_pengurus_bundes_bundes
-                    references: bundes(id)
                     nullable: false
               - column:
-                  name: id_pengurus
-                  type: varchar(50)
+                  name: deskripsi
+                  type: text
                   constraints:
-                    foreignKeyName: fk_pengurus_bundes_ref_pengurus
-                    references: ref_pengurus(id)
                     nullable: false
               - column:
                   name: is_deleted

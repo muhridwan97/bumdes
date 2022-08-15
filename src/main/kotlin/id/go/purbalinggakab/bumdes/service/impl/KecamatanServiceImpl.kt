@@ -8,6 +8,7 @@ import id.go.purbalinggakab.bumdes.model.response.KecamatanResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.ListResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.PagingResponse
 import id.go.purbalinggakab.bumdes.dami.repository.KecamatanRepository
+import id.go.purbalinggakab.bumdes.model.response.ItemResponse
 import id.go.purbalinggakab.bumdes.service.KeycloakAuthService
 import id.go.purbalinggakab.bumdes.service.KecamatanService
 import id.go.purbalinggakab.bumdes.specification.FilterMapper
@@ -67,6 +68,17 @@ class KecamatanServiceImpl(
         return convertResponse(result)
     }
 
+    override fun listAll(): List<ItemResponse<String>> {
+        val list = kecamatanRepository.findAll()
+
+        return list.map {
+            ItemResponse(
+                id = it.id.toString(),
+                value = it.id.toString(),
+                label = it.namaKecamatan
+            )
+        }
+    }
 
 
     private fun convertResponse(kecamatanEntity: KecamatanEntity): KecamatanResponse {
