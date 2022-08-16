@@ -23,14 +23,14 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: id_desa
-                  type: varchar(50)
+                  type: bigint
                   constraints:
 #                    foreignKeyName: fk_bumdes_bersama_ref_desa
 #                    references: ref_desa(id)
                     nullable: false
               - column:
                   name: id_kecamatan
-                  type: varchar(50)
+                  type: bigint
                   constraints:
 #                    foreignKeyName: fk_bumdes_bersama_ref_kecamatan
 #                    references: ref_kecamatan(id)

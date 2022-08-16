@@ -25,3 +25,5 @@ databaseChangeLog:
       file: 'db/changelog/changeset/20220811012-konsultasi_bumdes-table.yaml'
   - include:
       file: 'db/changelog/changeset/20220811013-tanggapan-table.yaml'
+  - include:
+      file: 'db/changelog/changeset/20220816001-prv_users-table.yaml'

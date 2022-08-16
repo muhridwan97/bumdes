@@ -4,15 +4,15 @@ import org.springframework.web.multipart.MultipartFile
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
-data class PengurusBumdesRequest(
+data class BumdesBersamaRequest(
 
     @field:NotBlank
     var id_bumdes: String,
 
-    @field:NotBlank
-    var id_pengurus: String,
+    @field:NotNull
+    var id_desa: Long,
 
-    @field:NotBlank
-    var jabatan: String,
+    @field:NotNull
+    var id_kecamatan: Long,
     )
 
