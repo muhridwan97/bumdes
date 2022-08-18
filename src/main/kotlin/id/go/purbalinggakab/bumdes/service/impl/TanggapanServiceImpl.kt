@@ -1,19 +1,20 @@
 package id.go.purbalinggakab.bumdes.service.impl
 
-import id.go.purbalinggakab.bumdes.bumdes.entity.KonsultasiBumdesEntity
+import id.go.purbalinggakab.bumdes.bumdes.entity.TanggapanEntity
 import id.go.purbalinggakab.bumdes.bumdes.repository.KonsultasiBumdesRepository
+import id.go.purbalinggakab.bumdes.bumdes.repository.TanggapanRepository
 import id.go.purbalinggakab.bumdes.bumdes.repository.UserRepository
 import id.go.purbalinggakab.bumdes.error.DeleteDataException
 import id.go.purbalinggakab.bumdes.error.NotFoundException
 import id.go.purbalinggakab.bumdes.extensions.formateDateTime
-import id.go.purbalinggakab.bumdes.model.request.CreateKonsultasiBumdesRequest
+import id.go.purbalinggakab.bumdes.model.request.CreateTanggapanRequest
 import id.go.purbalinggakab.bumdes.model.request.DeleteRequest
 import id.go.purbalinggakab.bumdes.model.request.RequestParams
-import id.go.purbalinggakab.bumdes.model.request.UpdateKonsultasiBumdesRequest
-import id.go.purbalinggakab.bumdes.model.response.KonsultasiBumdesResponse
+import id.go.purbalinggakab.bumdes.model.request.UpdateTanggapanRequest
+import id.go.purbalinggakab.bumdes.model.response.TanggapanResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.ListResponse
 import id.go.purbalinggakab.bumdes.model.response.pageable.PagingResponse
-import id.go.purbalinggakab.bumdes.service.KonsultasiBumdesService
+import id.go.purbalinggakab.bumdes.service.TanggapanService
 import id.go.purbalinggakab.bumdes.service.KeycloakAuthService
 import id.go.purbalinggakab.bumdes.specification.FilterMapper
 import id.go.purbalinggakab.bumdes.specification.FilterRequestUtil
@@ -27,30 +28,33 @@ import java.util.*
 import java.util.stream.Collectors
 
 @Service
-class KonsultasiBumdesServiceImpl(
-    val konsultasiBumdesRepository: KonsultasiBumdesRepository,
+class TanggapanServiceImpl(
+    val tanggapanRepository: TanggapanRepository,
     val userRepository: UserRepository,
+    val konsultasiBumdesRepository: KonsultasiBumdesRepository,
     val filterRequestUtil: FilterRequestUtil,
     val validationUtil: ValidationUtil,
     private val keycloakAuthService: KeycloakAuthService,
-    private val specification: FilterSpecification<KonsultasiBumdesEntity>
-) : KonsultasiBumdesService {
-    override fun create(createKonsultasiBumdesRequest: CreateKonsultasiBumdesRequest): KonsultasiBumdesResponse {
-        validationUtil.validate(createKonsultasiBumdesRequest)
+    private val specification: FilterSpecification<TanggapanEntity>
+) : TanggapanService {
+    override fun create(createTanggapanRequest: CreateTanggapanRequest): TanggapanResponse {
+        validationUtil.validate(createTanggapanRequest)
 
-        val konsultasiBumdesEntity = KonsultasiBumdesEntity(
+        val tanggapanEntity = TanggapanEntity(
             id = "",
-            judul = createKonsultasiBumdesRequest.judul,
-            deskripsi = createKonsultasiBumdesRequest.deskripsi,
+            idKonsultasi = createTanggapanRequest.id_konsultasi,
+            konsultasiBumdes = null,
+            tipe = createTanggapanRequest.tipe,
+            pesan = createTanggapanRequest.pesan,
             createdAt = Date(),
-            createdBy = createKonsultasiBumdesRequest.created_by,
+            createdBy = createTanggapanRequest.created_by,
             updatedAt = null,
             updatedBy = null,
             deletedAt = null,
             deletedBy = null
         )
 
-        val result = konsultasiBumdesRepository.save(konsultasiBumdesEntity)
+        val result = tanggapanRepository.save(tanggapanEntity)
 
         return convertToResponse(result)
     }
@@ -58,7 +62,7 @@ class KonsultasiBumdesServiceImpl(
     override fun list(
         requestParams: RequestParams,
         filter: Map<String, String>
-    ): ListResponse<KonsultasiBumdesResponse> {
+    ): ListResponse<TanggapanResponse> {
         val size = if (requestParams.size!! == -1) {
             Integer.MAX_VALUE
         } else {
@@ -71,9 +75,9 @@ class KonsultasiBumdesServiceImpl(
             filterRequestUtil.toSortBy(requestParams.sortBy!!)
         )
 
-        val list = konsultasiBumdesRepository.findAll(generateFilter(filter), pageable)
+        val list = tanggapanRepository.findAll(generateFilter(filter), pageable)
 
-        val items: List<KonsultasiBumdesEntity> = list.get().collect(Collectors.toList())
+        val items: List<TanggapanEntity> = list.get().collect(Collectors.toList())
 
         return ListResponse(
             items = items.map { convertToResponse(it) },
@@ -87,22 +91,23 @@ class KonsultasiBumdesServiceImpl(
         )
     }
 
-    override fun get(id: String): KonsultasiBumdesResponse {
+    override fun get(id: String): TanggapanResponse {
         val response = findByIdOrThrowNotFound(id)
         return convertToResponse(response)
     }
 
-    override fun update(id: String, updateKonsultasiBumdesRequest: UpdateKonsultasiBumdesRequest): KonsultasiBumdesResponse {
+    override fun update(id: String, updateTanggapanRequest: UpdateTanggapanRequest): TanggapanResponse {
         val result = findByIdOrThrowNotFound(id)
         validationUtil.validate(result)
 
         result.apply {
-            judul = updateKonsultasiBumdesRequest.judul
-            deskripsi = updateKonsultasiBumdesRequest.deskripsi
-            updatedBy = updateKonsultasiBumdesRequest.updated_by
+            idKonsultasi = updateTanggapanRequest.id_konsultasi
+            tipe = updateTanggapanRequest.tipe
+            pesan = updateTanggapanRequest.pesan
+            updatedBy = updateTanggapanRequest.updated_by
             updatedAt = Date()
         }
-        konsultasiBumdesRepository.save(result)
+        tanggapanRepository.save(result)
         return convertToResponse(result)
     }
 
@@ -116,9 +121,9 @@ class KonsultasiBumdesServiceImpl(
                     deletedBy = deleteRequest.deletedBy
                     deletedAt = Date()
                 }
-                konsultasiBumdesRepository.save(price)
+                tanggapanRepository.save(price)
             }else{
-                konsultasiBumdesRepository.delete(price)
+                tanggapanRepository.delete(price)
             }
         } catch (e: Exception) {
             println("error -> $e")
@@ -128,34 +133,39 @@ class KonsultasiBumdesServiceImpl(
     }
 
     override fun deleteList(ids: List<String>): String {
-        konsultasiBumdesRepository.deleteAllById(ids)
+        tanggapanRepository.deleteAllById(ids)
         return "Delete Successfully"
     }
 
-    private fun convertToResponse(konsultasiBumdesEntity: KonsultasiBumdesEntity): KonsultasiBumdesResponse {
-        val user = userRepository.findByIdOrNull(konsultasiBumdesEntity.createdBy)
-        return KonsultasiBumdesResponse(
-            id = konsultasiBumdesEntity.id,
-            judul = konsultasiBumdesEntity.judul,
-            deskripsi = konsultasiBumdesEntity.deskripsi,
+    private fun convertToResponse(tanggapanEntity: TanggapanEntity): TanggapanResponse {
+        val user = userRepository.findByIdOrNull(tanggapanEntity.createdBy)
+        if (tanggapanEntity.konsultasiBumdes == null){
+            tanggapanEntity.konsultasiBumdes = konsultasiBumdesRepository.findByIdOrNull(tanggapanEntity.idKonsultasi)
+        }
+        return TanggapanResponse(
+            id = tanggapanEntity.id,
+            id_konsultasi = tanggapanEntity.idKonsultasi,
+            judul_konsultasi = tanggapanEntity.konsultasiBumdes!!.judul,
+            tipe = tanggapanEntity.tipe,
+            pesan = tanggapanEntity.pesan,
             created_name = if (user == null) null else user!!.displayName!!,
-            created_at = konsultasiBumdesEntity.createdAt.formateDateTime(),
-            created_by = konsultasiBumdesEntity.createdBy,
-            updated_at = if (konsultasiBumdesEntity.updatedAt == null) null else konsultasiBumdesEntity.updatedAt!!.formateDateTime(),
-            updated_by = konsultasiBumdesEntity.updatedBy,
-            deleted_at = if (konsultasiBumdesEntity.deletedAt == null) null else konsultasiBumdesEntity.deletedAt!!.formateDateTime(),
-            deleted_by = konsultasiBumdesEntity.deletedBy,
+            created_at = tanggapanEntity.createdAt.formateDateTime(),
+            created_by = tanggapanEntity.createdBy,
+            updated_at = if (tanggapanEntity.updatedAt == null) null else tanggapanEntity.updatedAt!!.formateDateTime(),
+            updated_by = tanggapanEntity.updatedBy,
+            deleted_at = if (tanggapanEntity.deletedAt == null) null else tanggapanEntity.deletedAt!!.formateDateTime(),
+            deleted_by = tanggapanEntity.deletedBy,
         )
     }
 
-    private fun generateFilter(filter: Map<String, String>): Specification<KonsultasiBumdesEntity>? {
+    private fun generateFilter(filter: Map<String, String>): Specification<TanggapanEntity>? {
         val options: MutableList<FilterMapper> = mutableListOf()
         val filters = filterRequestUtil.toFilterCriteria(filter, options)
         return specification.buildPredicate(filters)
     }
 
-    private fun findByIdOrThrowNotFound(id: String): KonsultasiBumdesEntity{
-        val result = konsultasiBumdesRepository.findByIdOrNull(id)
+    private fun findByIdOrThrowNotFound(id: String): TanggapanEntity{
+        val result = tanggapanRepository.findByIdOrNull(id)
         if (result == null){
             throw NotFoundException()
         }else{

@@ -1,12 +1,16 @@
 package id.go.purbalinggakab.bumdes.model.response
 
 
-data class KonsultasiBumdesResponse (
+data class TanggapanResponse (
     var id: String,
 
-    var judul : String,
+    var id_konsultasi : String,
 
-    var deskripsi : String,
+    var judul_konsultasi : String,
+
+    var tipe : String,
+
+    var pesan : String,
 
     var created_name : String?="",
 

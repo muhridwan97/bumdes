@@ -1,7 +1,5 @@
 package id.go.purbalinggakab.bumdes.bumdes.entity
 
-import id.go.purbalinggakab.bumdes.dami.entity.DesaEntity
-import id.go.purbalinggakab.bumdes.dami.entity.KecamatanEntity
 import org.hibernate.annotations.*
 import java.util.*
 import javax.persistence.*
@@ -9,25 +7,32 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(name = "tanggapan")
+@Table(name = "prv_users")
 @Where(clause = "is_deleted=false")
-data class TanggapanEntity(
+data class UserEntity(
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     var id: String,
 
-    @Column(name = "id_konsultasi")
-    var idKonsultasi: String,
+    @Column(name="id_google")
+    var googleId: String,
 
-    @ManyToOne
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "id_konsultasi", insertable = false, updatable = false)
-    var konsultasiBumdes: KonsultasiBumdesEntity?,
+    var token : String?="",
 
-    @Column(name = "tipe")
-    var tipe: String,
-    var pesan: String,
+    var email : String,
+
+    @Column(name="display_name")
+    var displayName : String?="",
+
+
+    @Column(name="given_name")
+    var givenName : String?="",
+
+    @Column(name="family_name")
+    var familyName : String?="",
+
+    var photo : String?="",
 
     @Column(name = "is_deleted")
     var isDeleted : Boolean? = false,

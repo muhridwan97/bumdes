@@ -44,16 +44,16 @@ databaseChangeLog:
                   type: timestamp
               - column:
                   name: created_by
-                  type: integer
+                  type: varchar(50)
               - column:
                   name: updated_at
                   type: timestamp
               - column:
                   name: updated_by
-                  type: integer
+                  type: varchar(50)
               - column:
                   name: deleted_at
                   type: timestamp
               - column:
                   name: deleted_by
-                  type: integer
+                  type: varchar(50)
